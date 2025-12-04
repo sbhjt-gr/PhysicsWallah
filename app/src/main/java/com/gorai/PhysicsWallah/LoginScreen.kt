@@ -113,12 +113,7 @@ fun LoginScreen() {
             Card(
                 modifier = Modifier
                     .fillMaxWidth(),
-                shape = RoundedCornerShape(
-                    topStart = 24.dp,
-                    topEnd = 24.dp,
-                    bottomStart = 32.dp,
-                    bottomEnd = 32.dp
-                ),
+                shape = RoundedCornerShape(24.dp),
                 colors = CardDefaults.cardColors(containerColor = QuizzyWhite)
             ) {
                 Column(
@@ -165,31 +160,31 @@ fun LoginScreen() {
                             focusedBorderColor = Color.Gray
                         )
                     )
-
-                    Spacer(modifier = Modifier.height(24.dp))
-
-                    Button(
-                        onClick = { },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(56.dp),
-                        shape = RoundedCornerShape(
-                            topStart = 12.dp,
-                            topEnd = 12.dp,
-                            bottomStart = 28.dp,
-                            bottomEnd = 28.dp
-                        ),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = QuizzyBlack
-                        )
-                    ) {
-                        Text(
-                            text = "Sign in",
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Medium
-                        )
-                    }
                 }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Button(
+                onClick = { },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp),
+                shape = RoundedCornerShape(
+                    topStart = 12.dp,
+                    topEnd = 12.dp,
+                    bottomStart = 28.dp,
+                    bottomEnd = 28.dp
+                ),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = QuizzyBlack
+                )
+            ) {
+                Text(
+                    text = "Sign in",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium
+                )
             }
 
             Spacer(modifier = Modifier.height(24.dp))

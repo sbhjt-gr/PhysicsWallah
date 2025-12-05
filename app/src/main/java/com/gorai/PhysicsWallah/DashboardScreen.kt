@@ -313,22 +313,8 @@ private fun WeeklyOverviewCard() {
         ) {
             QuizStreakSection()
             Spacer(modifier = Modifier.height(20.dp))
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(1.dp)
-                    .background(DividerColor)
-            )
-            Spacer(modifier = Modifier.height(20.dp))
             AccuracySection()
-            Spacer(modifier = Modifier.height(20.dp))
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(1.dp)
-                    .background(DividerColor)
-            )
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(50.dp))
             PerformanceSection()
         }
     }

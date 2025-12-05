@@ -444,7 +444,6 @@ private fun QuizStreakSection() {
             days.forEachIndexed { index, day ->
                 when {
                     index < 4 -> StreakIndicator(state = StreakState.COMPLETED)
-                    index == 4 -> StreakIndicator(state = StreakState.CURRENT)
                     else -> StreakIndicator(state = StreakState.PENDING, label = day)
                 }
             }

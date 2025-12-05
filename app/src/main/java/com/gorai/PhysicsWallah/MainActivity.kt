@@ -44,7 +44,19 @@ class MainActivity : ComponentActivity() {
                         }
                         composable("dashboard") {
                             SetStatusBarStyle(this@MainActivity, darkIcons = true)
-                            DashboardScreen()
+                            DashboardScreen(
+                                onSettingsClick = {
+                                    navController.navigate("settings")
+                                }
+                            )
+                        }
+                        composable("settings") {
+                            SetStatusBarStyle(this@MainActivity, darkIcons = true)
+                            SettingsScreen(
+                                onBackClick = {
+                                    navController.popBackStack()
+                                }
+                            )
                         }
                     }
                 }

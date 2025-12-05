@@ -147,17 +147,17 @@ fun LoginScreen() {
                     contentColor = QuizzyWhite,
                     modifier = Modifier
                         .offset(y = 20.dp)
-                        .width(280.dp)
+                        .width(220.dp)
                 ) {
                     Box(
                         modifier = Modifier
-                            .height(72.dp)
+                            .height(60.dp)
                             .fillMaxWidth(),
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
                             text = "Sign in",
-                            fontSize = 18.sp,
+                            fontSize = 16.sp,
                             fontWeight = FontWeight.SemiBold
                         )
                     }

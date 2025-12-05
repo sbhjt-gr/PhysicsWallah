@@ -1,5 +1,6 @@
 package com.gorai.PhysicsWallah
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -10,12 +11,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
@@ -62,6 +61,9 @@ class WaveButtonShape : Shape {
 
 @Composable
 fun LoginScreen() {
+    var schoolId by remember { mutableStateOf("") }
+    var studentId by remember { mutableStateOf("") }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -104,51 +106,102 @@ fun LoginScreen() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .padding(horizontal = 24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Bottom
         ) {
-            Spacer(modifier = Modifier.height(80.dp))
-
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                verticalAlignment = Alignment.CenterVertically
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.BottomCenter
             ) {
-                Box(
+                Card(
                     modifier = Modifier
-                        .size(100.dp)
-                        .clip(CircleShape)
-                        .background(QuizzyPink)
-                )
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp),
+                    shape = RoundedCornerShape(36.dp),
+                    colors = CardDefaults.cardColors(containerColor = QuizzyWhite)
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 24.dp, vertical = 32.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = "Let's Get you Signed in",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = QuizzyBlack
+                        )
+                        Spacer(modifier = Modifier.height(24.dp))
+                        LoginInputField(
+                            value = schoolId,
+                            onValueChange = { schoolId = it },
+                            label = "School ID"
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        LoginInputField(
+                            value = studentId,
+                            onValueChange = { studentId = it },
+                            label = "Student ID"
+                        )
+                        Spacer(modifier = Modifier.height(72.dp))
+                    }
+                }
 
-                Box(
+                Surface(
+                    onClick = { },
+                    shape = WaveButtonShape(),
+                    color = QuizzyBlack,
+                    contentColor = QuizzyWhite,
+                    border = BorderStroke(1.dp, QuizzyWhite),
                     modifier = Modifier
-                        .size(100.dp)
-                        .clip(CircleShape)
-                        .background(QuizzyLightBlue)
-                )
+                        .offset(y = 32.dp)
+                        .width(180.dp)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .height(72.dp)
+                            .fillMaxWidth(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "Sign in",
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    }
+                }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Box(
-                modifier = Modifier
-                    .size(100.dp)
-                    .clip(CircleShape)
-                    .background(QuizzyMint)
-            )
-
             Spacer(modifier = Modifier.height(48.dp))
-
-            Text(
-                text = "Welcome to\nQuizzy!",
-                fontSize = 32.sp,
-                fontWeight = FontWeight.Bold,
-                color = QuizzyWhite,
-                textAlign = TextAlign.Center,
-                lineHeight = 40.sp
-            )
         }
     }
+}
+
+@Composable
+private fun LoginInputField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    label: String
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        placeholder = { Text(text = label, color = QuizzyBlack.copy(alpha = 0.4f)) },
+        singleLine = true,
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(48.dp),
+        colors = OutlinedTextFieldDefaults.colors(
+            focusedBorderColor = QuizzyLightBlue,
+            unfocusedBorderColor = QuizzyInputBg,
+            focusedContainerColor = QuizzyInputBg,
+            unfocusedContainerColor = QuizzyInputBg,
+            focusedTextColor = QuizzyBlack,
+            unfocusedTextColor = QuizzyBlack,
+            cursorColor = QuizzyBlack
+        )
+    )
 }
 
 @Preview(showBackground = true)

@@ -51,8 +51,9 @@ val OrangeBorder = Color(0xFFFFDDB8)
 val PinkTint = Color(0xFFFFF5F8)
 val PinkAccent = Color(0xFFE91E63)
 val PinkBorder = Color(0xFFFFC0D0)
-val PurpleTint = Color(0xFFEDE7F6)
-val PurpleAccent = Color(0xFF7C4DFF)
+val PurpleTint = Color(0xFFF8F5FC)
+val PurpleAccent = Color(0xFF9575CD)
+val PurpleBorder = Color(0xFFE0D6F0)
 val BackgroundColor = Color(0xFFF5F5F5)
 val CardWhite = Color(0xFFFFFFFF)
 val TextPrimary = Color(0xFF212121)
@@ -76,6 +77,8 @@ fun DashboardScreen(
         item { GreetingHeader(userName, userClass) }
         
         item { StatusCardsRow() }
+        
+        item { TodaySummaryHeader() }
         
         item { TodaySummaryCard() }
         
@@ -201,58 +204,63 @@ private fun StatusCard(
 }
 
 @Composable
+private fun TodaySummaryHeader() {
+    Text(
+        text = "Today's Summary",
+        fontSize = 20.sp,
+        fontWeight = FontWeight.Bold,
+        color = TextPrimary
+    )
+}
+
+@Composable
 private fun TodaySummaryCard() {
     Card(
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(20.dp),
+        shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(containerColor = PurpleTint),
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        border = androidx.compose.foundation.BorderStroke(1.dp, PurpleBorder)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(20.dp),
+                .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Box(
-                modifier = Modifier
-                    .size(80.dp)
-                    .clip(CircleShape)
-                    .background(PurpleAccent.copy(alpha = 0.15f)),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_search_focus),
-                    contentDescription = "Focus",
-                    tint = Color.Unspecified,
-                    modifier = Modifier.size(48.dp)
-                )
-            }
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
+            Icon(
+                painter = painterResource(id = R.drawable.ic_search_focus),
+                contentDescription = "Focus",
+                tint = Color.Unspecified,
+                modifier = Modifier.size(80.dp)
+            )
+            Spacer(modifier = Modifier.height(24.dp))
             Text(
                 text = "Focused",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                color = TextPrimary
+                fontSize = 22.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = PurpleAccent
             )
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "Struggles with Apply-level Math today.",
-                fontSize = 14.sp,
+                text = "\"Struggles with Apply-level Math today.\"",
+                fontSize = 13.sp,
                 color = TextSecondary
             )
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(20.dp))
             Button(
                 onClick = { },
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = TextPrimary)
+                shape = RoundedCornerShape(16.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = TextPrimary),
+                contentPadding = androidx.compose.foundation.layout.PaddingValues(vertical = 14.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.PlayArrow,
                     contentDescription = "Play",
                     tint = Color.White,
-                    modifier = Modifier.size(20.dp)
+                    modifier = Modifier.size(18.dp)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(

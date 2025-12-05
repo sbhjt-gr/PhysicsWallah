@@ -68,40 +68,6 @@ fun LoginScreen() {
             .fillMaxSize()
             .background(QuizzyBlack)
     ) {
-        Box(
-            modifier = Modifier
-                .size(120.dp)
-                .offset(x = (-30).dp, y = 150.dp)
-                .clip(CircleShape)
-                .background(QuizzyPink.copy(alpha = 0.3f))
-        )
-
-        Box(
-            modifier = Modifier
-                .size(100.dp)
-                .offset(x = 50.dp, y = 350.dp)
-                .clip(CircleShape)
-                .background(QuizzyWhite.copy(alpha = 0.1f))
-        )
-
-        Box(
-            modifier = Modifier
-                .align(Alignment.TopEnd)
-                .size(150.dp)
-                .offset(x = 50.dp, y = 100.dp)
-                .clip(CircleShape)
-                .background(QuizzyMint.copy(alpha = 0.2f))
-        )
-
-        Box(
-            modifier = Modifier
-                .align(Alignment.BottomStart)
-                .size(80.dp)
-                .offset(x = (-20).dp, y = 20.dp)
-                .clip(CircleShape)
-                .background(QuizzyYellow.copy(alpha = 0.2f))
-        )
-
         Image(
             painter = painterResource(id = R.drawable.ic_pw),
             contentDescription = "Pi Icon",

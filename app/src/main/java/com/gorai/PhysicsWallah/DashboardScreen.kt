@@ -242,9 +242,9 @@ private fun TodaySummaryCard() {
                 painter = painterResource(id = R.drawable.ic_search_focus),
                 contentDescription = "Focus",
                 tint = Color.Unspecified,
-                modifier = Modifier.size(80.dp)
+                modifier = Modifier.size(80.dp).offset(x = 8.dp)
             )
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(5.dp))
             Text(
                 text = "Focused",
                 fontSize = 22.sp,
@@ -440,7 +440,7 @@ private fun QuizStreakSection() {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            val days = listOf("M", "T", "W", "T", "F", "S", "S")
+            val days = listOf("S", "M", "T", "W", "T", "F", "S")
             days.forEachIndexed { index, day ->
                 when {
                     index < 4 -> StreakIndicator(state = StreakState.COMPLETED)

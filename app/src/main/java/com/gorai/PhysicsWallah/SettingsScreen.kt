@@ -1,6 +1,7 @@
 package com.gorai.PhysicsWallah
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -43,7 +44,10 @@ private val SettingsWhite = Color(0xFFFFFFFF)
 private val LogoutRed = Color(0xFFE53935)
 
 @Composable
-fun SettingsScreen(onBackClick: () -> Unit = {}) {
+fun SettingsScreen(
+    onBackClick: () -> Unit = {},
+    onLogout: () -> Unit = {}
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -110,7 +114,8 @@ fun SettingsScreen(onBackClick: () -> Unit = {}) {
                     title = "Logout",
                     subtitle = "Sign out of your account",
                     iconTint = LogoutRed,
-                    titleColor = LogoutRed
+                    titleColor = LogoutRed,
+                    onClick = onLogout
                 )
             }
             item { Spacer(modifier = Modifier.height(24.dp)) }
@@ -205,11 +210,13 @@ private fun SettingsRowPainter(
     title: String,
     subtitle: String,
     iconTint: Color = TextPrimary,
-    titleColor: Color = TextPrimary
+    titleColor: Color = TextPrimary,
+    onClick: (() -> Unit)? = null
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .then(if (onClick != null) Modifier.clickable { onClick() } else Modifier)
             .padding(vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {

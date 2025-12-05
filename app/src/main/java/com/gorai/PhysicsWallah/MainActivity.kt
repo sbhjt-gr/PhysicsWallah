@@ -55,6 +55,11 @@ class MainActivity : ComponentActivity() {
                             SettingsScreen(
                                 onBackClick = {
                                     navController.popBackStack()
+                                },
+                                onLogout = {
+                                    navController.navigate("login") {
+                                        popUpTo(0) { inclusive = true }
+                                    }
                                 }
                             )
                         }

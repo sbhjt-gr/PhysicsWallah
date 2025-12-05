@@ -1,5 +1,6 @@
 package com.gorai.PhysicsWallah
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,7 +33,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.drawscope.Fill
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -325,6 +333,94 @@ private fun WeeklyOverviewCard() {
 }
 
 @Composable
+private fun FlashcardIcon(modifier: Modifier = Modifier) {
+    Canvas(modifier = modifier) {
+        val w = size.width
+        val h = size.height
+        val cardW = w * 0.5f
+        val cardH = h * 0.75f
+        val cornerR = w * 0.04f
+        val stroke = w * 0.02f
+        
+        rotate(-12f, pivot = Offset(w * 0.35f, h * 0.5f)) {
+            drawRoundRect(
+                color = Color(0xFFFBC02D),
+                topLeft = Offset(w * 0.08f, h * 0.08f),
+                size = Size(cardW, cardH),
+                cornerRadius = CornerRadius(cornerR),
+                style = Fill
+            )
+            drawRoundRect(
+                color = Color(0xFF1B2124),
+                topLeft = Offset(w * 0.08f, h * 0.08f),
+                size = Size(cardW, cardH),
+                cornerRadius = CornerRadius(cornerR),
+                style = Stroke(width = stroke)
+            )
+        }
+        
+        rotate(12f, pivot = Offset(w * 0.65f, h * 0.5f)) {
+            drawRoundRect(
+                color = Color(0xFF64B5F6),
+                topLeft = Offset(w * 0.42f, h * 0.05f),
+                size = Size(cardW, cardH),
+                cornerRadius = CornerRadius(cornerR),
+                style = Fill
+            )
+            drawRoundRect(
+                color = Color(0xFF1B2124),
+                topLeft = Offset(w * 0.42f, h * 0.05f),
+                size = Size(cardW, cardH),
+                cornerRadius = CornerRadius(cornerR),
+                style = Stroke(width = stroke)
+            )
+        }
+        
+        drawRoundRect(
+            color = Color(0xFFF5F5F5),
+            topLeft = Offset(w * 0.22f, h * 0.2f),
+            size = Size(cardW * 1.1f, cardH * 0.95f),
+            cornerRadius = CornerRadius(cornerR),
+            style = Fill
+        )
+        drawRoundRect(
+            color = Color(0xFF1B2124),
+            topLeft = Offset(w * 0.22f, h * 0.2f),
+            size = Size(cardW * 1.1f, cardH * 0.95f),
+            cornerRadius = CornerRadius(cornerR),
+            style = Stroke(width = stroke)
+        )
+        
+        val qX = w * 0.5f
+        val qY = h * 0.58f
+        val qSize = w * 0.18f
+        drawCircle(
+            color = Color(0xFF757575),
+            radius = qSize * 0.08f,
+            center = Offset(qX, qY + qSize * 0.5f)
+        )
+        val path = Path().apply {
+            moveTo(qX - qSize * 0.15f, qY - qSize * 0.4f)
+            cubicTo(
+                qX - qSize * 0.15f, qY - qSize * 0.7f,
+                qX + qSize * 0.15f, qY - qSize * 0.7f,
+                qX + qSize * 0.15f, qY - qSize * 0.35f
+            )
+            cubicTo(
+                qX + qSize * 0.15f, qY - qSize * 0.1f,
+                qX, qY,
+                qX, qY + qSize * 0.2f
+            )
+        }
+        drawPath(
+            path = path,
+            color = Color(0xFF757575),
+            style = Stroke(width = stroke * 1.5f)
+        )
+    }
+}
+
+@Composable
 private fun QuizStreakSection() {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Row(
@@ -338,12 +434,7 @@ private fun QuizStreakSection() {
                 fontWeight = FontWeight.Bold,
                 color = TextPrimary
             )
-            Icon(
-                painter = painterResource(id = R.drawable.ic_quiz),
-                contentDescription = "Quiz",
-                tint = Color.Unspecified,
-                modifier = Modifier.size(40.dp)
-            )
+            FlashcardIcon(modifier = Modifier.size(44.dp))
         }
         Row(
             modifier = Modifier.fillMaxWidth(),

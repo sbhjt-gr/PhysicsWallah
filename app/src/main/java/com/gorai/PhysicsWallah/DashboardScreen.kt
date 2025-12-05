@@ -25,15 +25,14 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -285,22 +284,41 @@ private fun WeeklyOverviewHeader() {
     )
 }
 
+val DividerColor = Color(0xFFEEEEEE)
+val RedProgress = Color(0xFFEF5350)
+
 @Composable
 private fun WeeklyOverviewCard() {
     Card(
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(20.dp),
+        shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(containerColor = CardWhite),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        border = androidx.compose.foundation.BorderStroke(1.dp, DividerColor)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(20.dp),
-            verticalArrangement = Arrangement.spacedBy(20.dp)
+                .padding(20.dp)
         ) {
             QuizStreakSection()
+            Spacer(modifier = Modifier.height(20.dp))
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(1.dp)
+                    .background(DividerColor)
+            )
+            Spacer(modifier = Modifier.height(20.dp))
             AccuracySection()
+            Spacer(modifier = Modifier.height(20.dp))
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(1.dp)
+                    .background(DividerColor)
+            )
+            Spacer(modifier = Modifier.height(20.dp))
             PerformanceSection()
         }
     }
@@ -309,45 +327,105 @@ private fun WeeklyOverviewCard() {
 @Composable
 private fun QuizStreakSection() {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        Text(
-            text = "Quiz Streak",
-            fontSize = 16.sp,
-            fontWeight = FontWeight.SemiBold,
-            color = TextPrimary
-        )
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            repeat(7) { index ->
-                val isCompleted = index < 5
-                StreakIndicator(isCompleted = isCompleted)
+            Text(
+                text = "Quiz Streak",
+                fontSize = 17.sp,
+                fontWeight = FontWeight.Bold,
+                color = TextPrimary
+            )
+            Icon(
+                painter = painterResource(id = R.drawable.ic_quiz),
+                contentDescription = "Quiz",
+                tint = Color.Unspecified,
+                modifier = Modifier.size(40.dp)
+            )
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            val days = listOf("M", "T", "W", "T", "F", "S", "S")
+            days.forEachIndexed { index, day ->
+                when {
+                    index < 4 -> StreakIndicator(state = StreakState.COMPLETED)
+                    index == 4 -> StreakIndicator(state = StreakState.CURRENT)
+                    else -> StreakIndicator(state = StreakState.PENDING, label = day)
+                }
             }
         }
     }
 }
 
+enum class StreakState { COMPLETED, CURRENT, PENDING }
+
 @Composable
-private fun StreakIndicator(isCompleted: Boolean) {
+private fun StreakIndicator(state: StreakState, label: String = "") {
     Box(
         modifier = Modifier
-            .size(32.dp)
-            .clip(CircleShape)
-            .background(
-                if (isCompleted) GreenAccent else Color(0xFFE0E0E0)
+            .size(36.dp)
+            .then(
+                when (state) {
+                    StreakState.COMPLETED -> Modifier
+                        .clip(CircleShape)
+                        .background(GreenAccent)
+                    StreakState.CURRENT -> Modifier
+                        .clip(CircleShape)
+                        .background(GreenAccent)
+                        .then(
+                            Modifier.padding(2.dp)
+                        )
+                    StreakState.PENDING -> Modifier
+                        .clip(CircleShape)
+                        .background(Color.Transparent)
+                        .then(
+                            Modifier.drawDashedBorder()
+                        )
+                }
             ),
         contentAlignment = Alignment.Center
     ) {
-        if (isCompleted) {
-            Icon(
-                imageVector = Icons.Default.Check,
-                contentDescription = "Completed",
-                tint = Color.White,
-                modifier = Modifier.size(18.dp)
-            )
+        when (state) {
+            StreakState.COMPLETED, StreakState.CURRENT -> {
+                Icon(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = "Completed",
+                    tint = Color.White,
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+            StreakState.PENDING -> {
+                Text(
+                    text = label,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = TextSecondary
+                )
+            }
         }
     }
 }
+
+private fun Modifier.drawDashedBorder(): Modifier = this.then(
+    Modifier.drawBehind {
+        val strokeWidth = 1.5.dp.toPx()
+        val radius = size.minDimension / 2
+        drawCircle(
+            color = Color(0xFFBDBDBD),
+            radius = radius - strokeWidth / 2,
+            style = androidx.compose.ui.graphics.drawscope.Stroke(
+                width = strokeWidth,
+                pathEffect = androidx.compose.ui.graphics.PathEffect.dashPathEffect(
+                    floatArrayOf(8f, 6f), 0f
+                )
+            )
+        )
+    }
+)
 
 @Composable
 private fun AccuracySection() {
@@ -357,28 +435,43 @@ private fun AccuracySection() {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                text = "Accuracy",
-                fontSize = 16.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = TextPrimary
-            )
-            Text(
-                text = "68% correct",
-                fontSize = 14.sp,
-                color = TextSecondary
+            Column {
+                Text(
+                    text = "Accuracy",
+                    fontSize = 17.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = TextPrimary
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "68% correct",
+                    fontSize = 14.sp,
+                    color = TextSecondary
+                )
+            }
+            Icon(
+                painter = painterResource(id = R.drawable.ic_target),
+                contentDescription = "Target",
+                tint = Color.Unspecified,
+                modifier = Modifier.size(40.dp)
             )
         }
-        LinearProgressIndicator(
-            progress = { 0.68f },
+        Spacer(modifier = Modifier.height(4.dp))
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(8.dp)
-                .clip(RoundedCornerShape(4.dp)),
-            color = PurpleAccent,
-            trackColor = Color(0xFFE0E0E0),
-            strokeCap = StrokeCap.Round
-        )
+                .height(6.dp)
+                .clip(RoundedCornerShape(3.dp))
+                .background(Color(0xFFFFE0E0))
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth(0.68f)
+                    .height(6.dp)
+                    .clip(RoundedCornerShape(3.dp))
+                    .background(RedProgress)
+            )
+        }
     }
 }
 
@@ -391,15 +484,15 @@ private fun PerformanceSection() {
     ) {
         Text(
             text = "Performance by Topic",
-            fontSize = 16.sp,
-            fontWeight = FontWeight.SemiBold,
+            fontSize = 17.sp,
+            fontWeight = FontWeight.Bold,
             color = TextPrimary
         )
         Icon(
             painter = painterResource(id = R.drawable.ic_chart),
             contentDescription = "Chart",
-            tint = PurpleAccent,
-            modifier = Modifier.size(24.dp)
+            tint = Color.Unspecified,
+            modifier = Modifier.size(40.dp)
         )
     }
 }

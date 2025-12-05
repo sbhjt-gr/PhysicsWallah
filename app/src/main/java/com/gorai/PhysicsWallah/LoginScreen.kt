@@ -23,6 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gorai.PhysicsWallah.ui.theme.*
@@ -110,7 +111,8 @@ fun LoginScreen() {
                 fontSize = 48.sp,
                 fontWeight = FontWeight.Bold,
                 color = QuizzyWhite,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                lineHeight = 58.sp
             )
             Spacer(modifier = Modifier.height(32.dp))
             Box(

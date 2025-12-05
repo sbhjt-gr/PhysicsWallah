@@ -112,7 +112,8 @@ private fun StatusCardsRow() {
             modifier = Modifier.weight(1f),
             backgroundColor = GreenTint,
             iconTint = GreenAccent,
-            icon = Icons.Default.Person,
+            icon = null,
+            iconRes = R.drawable.ic_availability,
             title = "Availability",
             value = "Present"
         )

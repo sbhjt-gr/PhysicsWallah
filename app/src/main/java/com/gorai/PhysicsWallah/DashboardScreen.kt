@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -423,7 +424,7 @@ private fun FlashcardIcon(modifier: Modifier = Modifier) {
 
 @Composable
 private fun QuizStreakSection() {
-    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    Column {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -440,6 +441,7 @@ private fun QuizStreakSection() {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
+                .offset(y = (-4).dp)
                 .height(1.dp)
                 .background(
                     Brush.horizontalGradient(
@@ -447,6 +449,7 @@ private fun QuizStreakSection() {
                     )
                 )
         )
+        Spacer(modifier = Modifier.height(12.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(12.dp)

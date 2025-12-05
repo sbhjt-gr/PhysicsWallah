@@ -78,6 +78,16 @@ fun LoginScreen() {
                 .rotate(5f)
         )
 
+        Image(
+            painter = painterResource(id = R.drawable.ic_pw_badge),
+            contentDescription = "PW Badge",
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .offset(x = 40.dp, y = 60.dp)
+                .size(28.dp)
+                .rotate(5f)
+        )
+
         Column(
             modifier = Modifier
                 .fillMaxSize()

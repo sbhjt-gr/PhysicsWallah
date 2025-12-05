@@ -2,10 +2,15 @@ package com.gorai.PhysicsWallah
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -15,6 +20,7 @@ import com.gorai.PhysicsWallah.ui.theme.PhysicsWallahTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContent {
             PhysicsWallahTheme {
                 Surface(
@@ -27,6 +33,7 @@ class MainActivity : ComponentActivity() {
                         startDestination = "login"
                     ) {
                         composable("login") {
+                            SetStatusBarStyle(this@MainActivity, darkIcons = false)
                             LoginScreen(
                                 onSignIn = {
                                     navController.navigate("dashboard") {
@@ -36,11 +43,29 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable("dashboard") {
+                            SetStatusBarStyle(this@MainActivity, darkIcons = true)
                             DashboardScreen()
                         }
                     }
                 }
             }
         }
+    }
+}
+
+@Composable
+fun SetStatusBarStyle(activity: ComponentActivity, darkIcons: Boolean) {
+    DisposableEffect(darkIcons) {
+        activity.enableEdgeToEdge(
+            statusBarStyle = if (darkIcons) {
+                SystemBarStyle.light(
+                    android.graphics.Color.TRANSPARENT,
+                    android.graphics.Color.TRANSPARENT
+                )
+            } else {
+                SystemBarStyle.dark(android.graphics.Color.TRANSPARENT)
+            }
+        )
+        onDispose {}
     }
 }

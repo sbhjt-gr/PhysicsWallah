@@ -32,26 +32,14 @@ class WaveButtonShape : Shape {
             moveTo(0f, size.height)
             
             cubicTo(
-                size.width * 0.1f, size.height,
-                size.width * 0.15f, size.height * 0.65f,
-                size.width * 0.32f, size.height * 0.45f
-            )
-            
-            cubicTo(
-                size.width * 0.36f, size.height * 0.25f,
-                size.width * 0.4f, 0f,
+                size.width * 0.25f, size.height,
+                size.width * 0.25f, 0f,
                 size.width * 0.5f, 0f
             )
             
             cubicTo(
-                size.width * 0.6f, 0f,
-                size.width * 0.64f, size.height * 0.25f,
-                size.width * 0.68f, size.height * 0.45f
-            )
-            
-            cubicTo(
-                size.width * 0.85f, size.height * 0.65f,
-                size.width * 0.9f, size.height,
+                size.width * 0.75f, 0f,
+                size.width * 0.75f, size.height,
                 size.width, size.height
             )
             
@@ -119,7 +107,8 @@ fun LoginScreen() {
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 8.dp),
+                        .padding(horizontal = 8.dp)
+                        .offset(y = 20.dp),
                     shape = RoundedCornerShape(36.dp),
                     colors = CardDefaults.cardColors(containerColor = QuizzyWhite)
                 ) {

@@ -126,15 +126,15 @@ fun LoginScreen() {
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.avatar_male),
-                    contentDescription = "Avatar Male",
+                    painter = painterResource(id = R.drawable.avatar_glasses),
+                    contentDescription = "Avatar Glasses",
                     modifier = Modifier
                         .size(110.dp)
                         .offset(x = (-70).dp, y = (-20).dp)
                 )
                 Image(
-                    painter = painterResource(id = R.drawable.avatar_glasses),
-                    contentDescription = "Avatar Glasses",
+                    painter = painterResource(id = R.drawable.avatar_male),
+                    contentDescription = "Avatar Male",
                     modifier = Modifier
                         .size(100.dp)
                         .offset(x = 70.dp, y = (-20).dp)

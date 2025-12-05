@@ -2,9 +2,13 @@ package com.gorai.PhysicsWallah
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -175,22 +179,32 @@ private fun LoginInputField(
     onValueChange: (String) -> Unit,
     label: String
 ) {
-    OutlinedTextField(
+    val interactionSource = remember { MutableInteractionSource() }
+    val isFocused by interactionSource.collectIsFocusedAsState()
+    val borderColor = if (isFocused) QuizzyBlack else QuizzyBlack.copy(alpha = 0.15f)
+    val borderWidth = if (isFocused) 1.dp else 1.dp
+
+    BasicTextField(
         value = value,
         onValueChange = onValueChange,
-        placeholder = { Text(text = label, color = QuizzyBlack.copy(alpha = 0.4f)) },
         singleLine = true,
+        interactionSource = interactionSource,
+        textStyle = LocalTextStyle.current.copy(color = QuizzyBlack),
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(20.dp),
-        colors = OutlinedTextFieldDefaults.colors(
-            focusedBorderColor = QuizzyBlack,
-            unfocusedBorderColor = QuizzyBlack.copy(alpha = 0.15f),
-            focusedContainerColor = QuizzyInputBg,
-            unfocusedContainerColor = QuizzyInputBg,
-            focusedTextColor = QuizzyBlack,
-            unfocusedTextColor = QuizzyBlack,
-            cursorColor = QuizzyBlack
-        )
+        decorationBox = { innerTextField ->
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(QuizzyInputBg, RoundedCornerShape(20.dp))
+                    .border(borderWidth, borderColor, RoundedCornerShape(20.dp))
+                    .padding(horizontal = 16.dp, vertical = 16.dp)
+            ) {
+                if (value.isEmpty()) {
+                    Text(text = label, color = QuizzyBlack.copy(alpha = 0.4f))
+                }
+                innerTextField()
+            }
+        }
     )
 }
 

@@ -42,12 +42,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gorai.PhysicsWallah.ui.theme.PhysicsWallahTheme
 
-val GreenTint = Color(0xFFE8F5E9)
+val GreenTint = Color(0xFFF0FAF0)
 val GreenAccent = Color(0xFF4CAF50)
-val OrangeTint = Color(0xFFFFF3E0)
+val GreenBorder = Color(0xFFB8E6B8)
+val OrangeTint = Color(0xFFFFFAF5)
 val OrangeAccent = Color(0xFFFF9800)
-val PinkTint = Color(0xFFFCE4EC)
+val OrangeBorder = Color(0xFFFFDDB8)
+val PinkTint = Color(0xFFFFF5F8)
 val PinkAccent = Color(0xFFE91E63)
+val PinkBorder = Color(0xFFFFC0D0)
 val PurpleTint = Color(0xFFEDE7F6)
 val PurpleAccent = Color(0xFF7C4DFF)
 val BackgroundColor = Color(0xFFF5F5F5)
@@ -111,6 +114,7 @@ private fun StatusCardsRow() {
         StatusCard(
             modifier = Modifier.weight(1f),
             backgroundColor = GreenTint,
+            borderColor = GreenBorder,
             iconTint = GreenAccent,
             icon = null,
             iconRes = R.drawable.ic_availability,
@@ -120,6 +124,7 @@ private fun StatusCardsRow() {
         StatusCard(
             modifier = Modifier.weight(1f),
             backgroundColor = OrangeTint,
+            borderColor = OrangeBorder,
             iconTint = OrangeAccent,
             icon = null,
             iconRes = R.drawable.ic_quiz,
@@ -129,6 +134,7 @@ private fun StatusCardsRow() {
         StatusCard(
             modifier = Modifier.weight(1f),
             backgroundColor = PinkTint,
+            borderColor = PinkBorder,
             iconTint = PinkAccent,
             icon = null,
             iconRes = R.drawable.ic_target,
@@ -142,6 +148,7 @@ private fun StatusCardsRow() {
 private fun StatusCard(
     modifier: Modifier = Modifier,
     backgroundColor: Color,
+    borderColor: Color,
     iconTint: Color,
     icon: ImageVector? = null,
     iconRes: Int? = null,
@@ -150,51 +157,44 @@ private fun StatusCard(
 ) {
     Card(
         modifier = modifier,
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(containerColor = backgroundColor),
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        border = androidx.compose.foundation.BorderStroke(1.dp, borderColor)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .padding(16.dp),
+            horizontalAlignment = Alignment.Start
         ) {
-            Box(
-                modifier = Modifier
-                    .size(40.dp)
-                    .clip(CircleShape)
-                    .background(iconTint.copy(alpha = 0.2f)),
-                contentAlignment = Alignment.Center
-            ) {
-                if (icon != null) {
-                    Icon(
-                        imageVector = icon,
-                        contentDescription = title,
-                        tint = iconTint,
-                        modifier = Modifier.size(24.dp)
-                    )
-                } else if (iconRes != null) {
-                    Icon(
-                        painter = painterResource(id = iconRes),
-                        contentDescription = title,
-                        tint = iconTint,
-                        modifier = Modifier.size(24.dp)
-                    )
-                }
+            if (icon != null) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = title,
+                    tint = iconTint,
+                    modifier = Modifier.size(28.dp)
+                )
+            } else if (iconRes != null) {
+                Icon(
+                    painter = painterResource(id = iconRes),
+                    contentDescription = title,
+                    tint = iconTint,
+                    modifier = Modifier.size(28.dp)
+                )
             }
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(20.dp))
             Text(
                 text = title,
-                fontSize = 12.sp,
+                fontSize = 13.sp,
                 color = TextSecondary
             )
-            Spacer(modifier = Modifier.height(2.dp))
+            Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = value,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = TextPrimary
+                fontSize = 15.sp,
+                fontWeight = FontWeight.Medium,
+                color = iconTint
             )
         }
     }

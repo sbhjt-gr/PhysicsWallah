@@ -195,7 +195,7 @@ private fun StatusCard(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(12.dp),
             horizontalAlignment = Alignment.Start
         ) {
             if (icon != null) {
@@ -213,13 +213,13 @@ private fun StatusCard(
                     modifier = Modifier.size(28.dp)
                 )
             }
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(12.dp))
             Text(
                 text = title,
                 fontSize = 13.sp,
                 color = TextSecondary
             )
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(2.dp))
             Text(
                 text = value,
                 fontSize = 15.sp,

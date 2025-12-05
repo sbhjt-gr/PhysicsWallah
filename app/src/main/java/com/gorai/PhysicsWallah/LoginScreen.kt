@@ -115,7 +115,7 @@ fun LoginScreen() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 24.dp),
+                .padding(horizontal = 12.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Bottom
         ) {
@@ -164,7 +164,7 @@ fun LoginScreen() {
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 8.dp)
+                        .padding(horizontal = 0.dp)
                         .offset(y = 20.dp),
                     shape = RoundedCornerShape(36.dp),
                     colors = CardDefaults.cardColors(containerColor = QuizzyWhite)

@@ -57,6 +57,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.gorai.PhysicsWallah.data.model.QuizDay
 import com.gorai.PhysicsWallah.data.model.StudentDashboard
+import com.gorai.PhysicsWallah.data.model.TopicPerformance
 import com.gorai.PhysicsWallah.ui.state.DashboardUiState
 import com.gorai.PhysicsWallah.ui.theme.PhysicsWallahTheme
 import com.gorai.PhysicsWallah.ui.viewmodel.DashboardViewModel
@@ -167,7 +168,8 @@ private fun DashboardContent(
             WeeklyOverviewCard(
                 quizStreak = data.weeklyOverview.quizStreak,
                 accuracyPercent = data.weeklyOverview.overallAccuracy.percentage,
-                accuracyLabel = data.weeklyOverview.overallAccuracy.label
+                accuracyLabel = data.weeklyOverview.overallAccuracy.label,
+                topics = data.weeklyOverview.performanceByTopic
             )
         }
         
@@ -402,7 +404,8 @@ val RedProgress = Color(0xFFEF5350)
 private fun WeeklyOverviewCard(
     quizStreak: List<QuizDay>,
     accuracyPercent: Int,
-    accuracyLabel: String
+    accuracyLabel: String,
+    topics: List<TopicPerformance>
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -419,8 +422,8 @@ private fun WeeklyOverviewCard(
             QuizStreakSection(quizStreak)
             Spacer(modifier = Modifier.height(20.dp))
             AccuracySection(accuracyPercent, accuracyLabel)
-            Spacer(modifier = Modifier.height(50.dp))
-            PerformanceSection()
+            Spacer(modifier = Modifier.height(20.dp))
+            PerformanceSection(topics)
         }
     }
 }
@@ -752,7 +755,7 @@ private fun AccuracyIcon(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun PerformanceSection() {
+private fun PerformanceSection(topics: List<TopicPerformance>) {
     Column {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -779,6 +782,45 @@ private fun PerformanceSection() {
                     )
                 )
         )
+        Spacer(modifier = Modifier.height(12.dp))
+        topics.forEach { topic ->
+            TopicRow(topic.topic, topic.trend)
+            Spacer(modifier = Modifier.height(8.dp))
+        }
+    }
+}
+
+@Composable
+private fun TopicRow(topic: String, trend: String) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = topic,
+            fontSize = 14.sp,
+            color = TextPrimary,
+            modifier = Modifier.weight(1f)
+        )
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            val isUp = trend == "up"
+            Icon(
+                painter = painterResource(
+                    id = if (isUp) R.drawable.ic_trend_up else R.drawable.ic_trend_down
+                ),
+                contentDescription = trend,
+                tint = if (isUp) GreenAccent else Color(0xFFE53935),
+                modifier = Modifier.size(16.dp)
+            )
+            Spacer(modifier = Modifier.width(4.dp))
+            Text(
+                text = if (isUp) "Improving" else "Needs Work",
+                fontSize = 12.sp,
+                color = if (isUp) GreenAccent else Color(0xFFE53935),
+                fontWeight = FontWeight.Medium
+            )
+        }
     }
 }
 

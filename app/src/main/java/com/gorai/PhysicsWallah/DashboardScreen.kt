@@ -224,7 +224,7 @@ private fun TodaySummaryCard() {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_search_focus),
                     contentDescription = "Focus",
-                    tint = PurpleAccent,
+                    tint = Color.Unspecified,
                     modifier = Modifier.size(48.dp)
                 )
             }

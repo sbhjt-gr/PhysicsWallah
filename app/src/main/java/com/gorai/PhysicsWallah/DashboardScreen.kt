@@ -236,7 +236,8 @@ private fun TodaySummaryHeader() {
         text = "Today's Summary",
         fontSize = 20.sp,
         fontWeight = FontWeight.Bold,
-        color = TextPrimary
+        color = TextPrimary,
+        modifier = Modifier.padding(vertical = 8.dp)
     )
 }
 
@@ -308,7 +309,8 @@ private fun WeeklyOverviewHeader() {
         text = "Weekly Overview",
         fontSize = 20.sp,
         fontWeight = FontWeight.Bold,
-        color = TextPrimary
+        color = TextPrimary,
+        modifier = Modifier.padding(vertical = 8.dp)
     )
 }
 

@@ -20,9 +20,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Button
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -71,7 +73,8 @@ val TextSecondary = Color(0xFF757575)
 @Composable
 fun DashboardScreen(
     userName: String = "Gaurav",
-    userClass: String = "10th Class"
+    userClass: String = "10th Class",
+    onSettingsClick: () -> Unit = {}
 ) {
     LazyColumn(
         modifier = Modifier
@@ -83,7 +86,7 @@ fun DashboardScreen(
     ) {
         item { Spacer(modifier = Modifier.height(8.dp)) }
         
-        item { GreetingHeader(userName, userClass) }
+        item { GreetingHeader(userName, userClass, onSettingsClick) }
         
         item { StatusCardsRow() }
         
@@ -100,20 +103,34 @@ fun DashboardScreen(
 }
 
 @Composable
-private fun GreetingHeader(name: String, classInfo: String) {
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Text(
-            text = "Hello $name!",
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold,
-            color = TextPrimary
-        )
-        Spacer(modifier = Modifier.height(4.dp))
-        Text(
-            text = classInfo,
-            fontSize = 14.sp,
-            color = TextSecondary
-        )
+private fun GreetingHeader(name: String, classInfo: String, onSettingsClick: () -> Unit) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column {
+            Text(
+                text = "Hello $name!",
+                fontSize = 28.sp,
+                fontWeight = FontWeight.Bold,
+                color = TextPrimary
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = classInfo,
+                fontSize = 14.sp,
+                color = TextSecondary
+            )
+        }
+        IconButton(onClick = onSettingsClick) {
+            Icon(
+                imageVector = Icons.Default.Notifications,
+                contentDescription = "Settings",
+                tint = TextPrimary,
+                modifier = Modifier.size(28.dp)
+            )
+        }
     }
 }
 

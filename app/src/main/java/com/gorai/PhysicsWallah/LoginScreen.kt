@@ -215,7 +215,8 @@ fun LoginScreen() {
                         Text(
                             text = "Sign in",
                             fontSize = 16.sp,
-                            fontWeight = FontWeight.SemiBold
+                            fontWeight = FontWeight.SemiBold,
+                            modifier = Modifier.offset(y = 3.dp)
                         )
                     }
                 }

@@ -107,9 +107,9 @@ fun LoginScreen() {
             contentDescription = "Quizzy Icon",
             modifier = Modifier
                 .align(Alignment.CenterStart)
-                .offset(x = 16.dp, y = 40.dp)
-                .size(48.dp)
-                .rotate(110f)
+                .offset(x = 16.dp, y = (-120).dp)
+                .size(35.dp)
+                .rotate(5f)
         )
 
         Column(

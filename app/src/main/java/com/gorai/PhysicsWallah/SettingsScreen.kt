@@ -90,7 +90,7 @@ fun SettingsScreen(onBackClick: () -> Unit = {}) {
             }
             item { Spacer(modifier = Modifier.height(24.dp)) }
             item { SectionTitle("Settings") }
-            item { Spacer(modifier = Modifier.height(12.dp)) }
+            item { Spacer(modifier = Modifier.height(8.dp)) }
             item {
                 SettingsRow(
                     icon = Icons.Filled.Person,
@@ -98,7 +98,7 @@ fun SettingsScreen(onBackClick: () -> Unit = {}) {
                     subtitle = "Change active child profile"
                 )
             }
-            item { Spacer(modifier = Modifier.height(12.dp)) }
+            item { Spacer(modifier = Modifier.height(4.dp)) }
             item {
                 SettingsRowPainter(
                     iconRes = R.drawable.ic_globe,
@@ -106,7 +106,7 @@ fun SettingsScreen(onBackClick: () -> Unit = {}) {
                     subtitle = "English"
                 )
             }
-            item { Spacer(modifier = Modifier.height(12.dp)) }
+            item { Spacer(modifier = Modifier.height(4.dp)) }
             item {
                 SettingsRow(
                     icon = Icons.AutoMirrored.Filled.ExitToApp,

@@ -584,41 +584,41 @@ private fun AccuracySection() {
 private fun AccuracyIcon(modifier: Modifier = Modifier) {
     Canvas(modifier = modifier) {
         val centerX = size.width / 2
-        val centerY = size.height * 0.4f
-        val outerRadius = size.minDimension / 2 * 0.55f
+        val centerY = size.height * 0.45f
+        val outerRadius = size.minDimension / 2 * 0.5f
         val red = Color(0xFFED1D31)
         val white = Color(0xFFF1F2F2)
         val stroke = Color(0xFF1B2124)
         val brown = Color(0xFF874300)
         val blue = Color(0xFF5190C4)
         val strokeWidth = 1.dp.toPx()
-        val standWidth = 2.dp.toPx()
-        val standHeight = size.height * 0.4f
-        rotate(degrees = 30f, pivot = Offset(centerX - outerRadius * 0.5f, centerY + outerRadius * 0.5f)) {
+        val standWidth = 1.dp.toPx()
+        val standHeight = size.height * 0.2f
+        rotate(degrees = 30f, pivot = Offset(centerX - outerRadius * 0.5f, centerY + outerRadius * 0.8f)) {
             drawRoundRect(
                 color = brown,
-                topLeft = Offset(centerX - outerRadius * 0.5f - standWidth / 2, centerY + outerRadius * 0.5f),
+                topLeft = Offset(centerX - outerRadius * 0.5f - standWidth / 2, centerY + outerRadius * 0.8f),
                 size = Size(standWidth, standHeight),
                 cornerRadius = CornerRadius(standWidth / 2, standWidth / 2)
             )
             drawRoundRect(
                 color = stroke,
-                topLeft = Offset(centerX - outerRadius * 0.5f - standWidth / 2, centerY + outerRadius * 0.5f),
+                topLeft = Offset(centerX - outerRadius * 0.5f - standWidth / 2, centerY + outerRadius * 0.8f),
                 size = Size(standWidth, standHeight),
                 cornerRadius = CornerRadius(standWidth / 2, standWidth / 2),
                 style = Stroke(width = 0.5.dp.toPx())
             )
         }
-        rotate(degrees = -30f, pivot = Offset(centerX + outerRadius * 0.5f, centerY + outerRadius * 0.5f)) {
+        rotate(degrees = -30f, pivot = Offset(centerX + outerRadius * 0.5f, centerY + outerRadius * 0.8f)) {
             drawRoundRect(
                 color = brown,
-                topLeft = Offset(centerX + outerRadius * 0.5f - standWidth / 2, centerY + outerRadius * 0.5f),
+                topLeft = Offset(centerX + outerRadius * 0.5f - standWidth / 2, centerY + outerRadius * 0.8f),
                 size = Size(standWidth, standHeight),
                 cornerRadius = CornerRadius(standWidth / 2, standWidth / 2)
             )
             drawRoundRect(
                 color = stroke,
-                topLeft = Offset(centerX + outerRadius * 0.5f - standWidth / 2, centerY + outerRadius * 0.5f),
+                topLeft = Offset(centerX + outerRadius * 0.5f - standWidth / 2, centerY + outerRadius * 0.8f),
                 size = Size(standWidth, standHeight),
                 cornerRadius = CornerRadius(standWidth / 2, standWidth / 2),
                 style = Stroke(width = 0.5.dp.toPx())

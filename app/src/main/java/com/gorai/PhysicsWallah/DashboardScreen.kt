@@ -662,11 +662,64 @@ private fun PerformanceSection() {
             fontWeight = FontWeight.Bold,
             color = TextPrimary
         )
-        Icon(
-            painter = painterResource(id = R.drawable.ic_chart),
-            contentDescription = "Chart",
-            tint = Color.Unspecified,
-            modifier = Modifier.size(40.dp)
+        BarChartIcon(modifier = Modifier.size(40.dp))
+    }
+}
+
+@Composable
+private fun BarChartIcon(modifier: Modifier = Modifier) {
+    Canvas(modifier = modifier) {
+        val barWidth = size.width * 0.2f
+        val barSpacing = size.width * 0.08f
+        val totalBarsWidth = barWidth * 3 + barSpacing * 2
+        val startX = (size.width - totalBarsWidth) / 2
+        val bottomY = size.height * 0.95f
+        val bar1Height = size.height * 0.65f
+        val bar2Height = size.height * 0.82f
+        val bar3Height = size.height * 1f
+        val cornerRadius = CornerRadius(barWidth * 0.15f, barWidth * 0.15f)
+        val strokeColor = Color(0xFF1B2124)
+        val strokeWidth = 1.dp.toPx()
+        drawRoundRect(
+            brush = Brush.verticalGradient(listOf(Color(0xFFFFCD80), Color(0xFFFFB33F))),
+            topLeft = Offset(startX, bottomY - bar1Height),
+            size = Size(barWidth, bar1Height),
+            cornerRadius = cornerRadius
+        )
+        drawRoundRect(
+            color = strokeColor,
+            topLeft = Offset(startX, bottomY - bar1Height),
+            size = Size(barWidth, bar1Height),
+            cornerRadius = cornerRadius,
+            style = Stroke(width = strokeWidth)
+        )
+        val bar2X = startX + barWidth + barSpacing
+        drawRoundRect(
+            brush = Brush.verticalGradient(listOf(Color(0xFFFF8666), Color(0xFFE85F3B))),
+            topLeft = Offset(bar2X, bottomY - bar2Height),
+            size = Size(barWidth, bar2Height),
+            cornerRadius = cornerRadius
+        )
+        drawRoundRect(
+            color = strokeColor,
+            topLeft = Offset(bar2X, bottomY - bar2Height),
+            size = Size(barWidth, bar2Height),
+            cornerRadius = cornerRadius,
+            style = Stroke(width = strokeWidth)
+        )
+        val bar3X = bar2X + barWidth + barSpacing
+        drawRoundRect(
+            brush = Brush.verticalGradient(listOf(Color(0xFF93B0C2), Color(0xFF15708F))),
+            topLeft = Offset(bar3X, bottomY - bar3Height),
+            size = Size(barWidth, bar3Height),
+            cornerRadius = cornerRadius
+        )
+        drawRoundRect(
+            color = strokeColor,
+            topLeft = Offset(bar3X, bottomY - bar3Height),
+            size = Size(barWidth, bar3Height),
+            cornerRadius = cornerRadius,
+            style = Stroke(width = strokeWidth)
         )
     }
 }

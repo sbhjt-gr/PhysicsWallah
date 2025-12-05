@@ -59,7 +59,7 @@ class WaveButtonShape : Shape {
 }
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(onSignIn: () -> Unit = {}) {
     var schoolId by remember { mutableStateOf("") }
     var studentId by remember { mutableStateOf("") }
 
@@ -210,7 +210,7 @@ fun LoginScreen() {
                 }
 
                 Surface(
-                    onClick = { },
+                    onClick = onSignIn,
                     shape = WaveButtonShape(),
                     color = QuizzyBlack,
                     contentColor = QuizzyWhite,
